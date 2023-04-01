@@ -10,7 +10,18 @@ interface GenreResponseProps {
 
 interface SideBarProps {
   selectedGenreId: number;
-  handleClickButton: Function;
+  handleClickButton: (id: number) => void;
+}
+
+interface MovieProps {
+  imdbID: string;
+  Title: string;
+  Poster: string;
+  Ratings: Array<{
+    Source: string;
+    Value: string;
+  }>;
+  Runtime: string;
 }
 
 export function SideBar(props: SideBarProps) {
@@ -18,11 +29,14 @@ export function SideBar(props: SideBarProps) {
   const {selectedGenreId, handleClickButton} = props
   const [genres, setGenres] = useState<GenreResponseProps[]>([]);
 
+
   useEffect(() => {
     api.get<GenreResponseProps[]>('genres').then(response => {
       setGenres(response.data);
     });
   }, []);
+
+  
 
 
 
